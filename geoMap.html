@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEOMAPS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+<body>
+    <div id="meuMapa" style="height: 400px;"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        //verificando se o geo esta disponivel
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(mostraPosicao,null)
+        }else{
+            alert("Geolocalizacao não esta funcionando")
+        }
+        function mostraPosicao(x){
+            //obtem as coordenadas
+            let lat = x.coords.latitude
+            let lon = x.coords.longitude
+            //cria um mapa usando as coordenadas
+            let meuMapa=L.map('meuMapa').setView([lat,lon],13)
+
+            // cria uma cama com o OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+                atribution:'senac'
+            }).addTo(meuMapa)
+            
+            //adiciona a flexinha no mapa da localizacao
+            let marcador = L.marker([lat,lon]).addTo(meuMapa)
+            marcador.bindPoup('VOCE ESTA AQUI').openPopup()
+        }
+    </script>
+
+    
+</body>
+</html>

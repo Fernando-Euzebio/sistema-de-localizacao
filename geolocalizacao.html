@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="localizacao"></div>
+    <script>
+        function obterlocalizacao()
+        {
+            navigator.geolocation.getCurrentPosition(function(x){
+                let latitude = x.coords.latitude
+                let logitude = x.coords.longitude
+
+                let elemento = document.getElementById("localizacao")
+                elemento.innerHTML ="Latitude:" +latitude+" Longe:"+logitude
+            },
+            function(erro)
+            {
+                alert("Erro ao Obter a localizacao",erro)
+
+            })
+
+        }
+        obterlocalizacao()
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>API VIA CEP</title>
+    </head>
+    <body>
+        <h1>Consulta CEP</h1>
+        <!--formulario para entrada do cep-->
+        <form id="cepform">
+            <label for="cepinput">CEP:</label>
+            <input type="text" id="cepinput" maxlength="8" required>
+            <button type="button" onclick="consultarCEP()">consultar</button>
+            
+        </form>
+        <div id="resultado">
+            <h2>resultado</h2>
+            <p id ="logradouro"></p>
+            <p id="bairro"></p>
+        </div>
+        <script>
+            function consultarCEP(){
+                const cepinput= document.getElementById('cepinput')
+                const cep = cepinput.value.replace(/\D/g,'')
+
+                const url="https://viacep.com.br/ws/"+cep+"/json"
+
+                // ajax---> conectar com o site usando JSON
+                fetch(url)
+                    .then(response =>response.json())
+                    .then(data =>{
+                        // eibe os resultados em uma div
+                        document.getElementById('logradouro').innerHTML=data.logradouro
+                        document.getElementById('bairro').innerHTML=data.bairro
+
+                    }).catch(erro=> console.error('erro na aquisicao',erro))
+
+            }
+            
+        </script>
+    </body>
+</html>
